@@ -1,25 +1,69 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Zarejestruj się{% endblock %}
 
 {% block body %}
     {% for flashError in app.flashes('verify_email_error') %}
         <div class="alert alert-danger" role="alert">{{ flashError }}</div>
     {% endfor %}
-
-    <h1>Register</h1>
     {% if app.user.name is defined %}
     You are logged in as {{ app.user.name }}, <a href="{{ path('app_logout') }}">Logout</a>
     {% endif %}
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.name) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+<div class="header_meta header_meta_one">
+    <div class="container">
+        <div class="row">            
+            <nav class="meta-login">
+                <ul>
+                    <li><a href="{{ path('app_login') }}" class="fancybox">Zaloguj się</a></li>
+                    <li><a href="{{ path('app_register') }}" class="fancybox">Zarejestruj się</a></li>
+                </ul>
+            </nav>
+        </div> 
+    </div>
+</div>
 
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+<header class="site-header home-one" id="masthead">
+    <div class="container">
+        <div class="row">
+            <div class="site-branding col-xs-12 col-sm-3"> <a href="register.html#"><img alt="educationpress" class="brand" src="images/logo5.png" /></a> </div>
+        </div>
+    </div>
+</header>
+
+<div class="page-spacer clearfix">
+    <div id="primary" class="content-area">
+        <div class="container">
+            <div class="row">
+                <main id="main" class="site-main col-xs-12">
+                    <div class="col-xs-12 col-sm-10 register-form form clearfix">
+                        <h3>Zarejestruj się</h3>
+                            {# <form name="loginform" id="student-settings" class="student-settings" method="post"> #}
+                            {{ form_start(registrationForm) }}
+                            <label>{{ form_row(registrationForm.name, { label: 'Imię' }) }}</label>
+                            <label>{{ form_row(registrationForm.email) }}</label>
+                            <label>{{ form_row(registrationForm.plainPassword, { label: 'Hasło' }) }}</label>
+                            <label style="display: inline-block;">{{ form_row(registrationForm.agreeTerms, {label: "Zgoda na przetwarzanie danych"}) }}</label>                            
+                            <p>Masz już konto?<a href="{{ path('app_login') }}"> Zaloguj się</a>!</p>
+                            {# <input name="submit" class="btn btn-default pull-right" value="Create an Account" type="submit"> #}
+                            <input name="submit" id="submit" class="btn btn-default" value="Zarejestruj się" type="submit">
+                            {# <button class="btn btn-default pull-left">Zarejestruj się</button> #}
+                            {{ form_end(registrationForm) }}
+                    </div> 
+                </main>
+            </div> 
+        </div> 
+    </div>
+</div> 
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+<script src="js/theme.js"></script>
+
+<script type="text/javascript" src="vendor/fancybox/js/jquery.fancybox.js"></script>
+<script type="text/javascript" src="vendor/fancybox/js/custom.fancybox.js"></script>
+<script>
+jQuery.noConflict();
+jQuery('.fancybox').fancybox();
+</script>   
 {% endblock %}
