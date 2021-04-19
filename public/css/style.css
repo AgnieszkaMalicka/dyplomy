@@ -1,3 +1,24 @@
+/* custom */
+#linkLikeButton {
+    display: inline-block;
+    background: #fff none repeat scroll 0 0;
+    border: 1px solid #007bff;
+    border-radius: 30px;
+    color: #ff5722 !important;
+    font-family: Montserrat, sans-serif;
+    font-size: 15px;
+    line-height: 1;
+    padding: 15px 25px;
+    margin: 10px;
+}
+
+#linkLikeButton:hover {
+    border: 1px solid #ff5722;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+/* custom end */
+
 nav.meta-login {
     float: right;
     max-height: 48px;

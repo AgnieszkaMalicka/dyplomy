@@ -12,7 +12,7 @@
                 <ul>
                     <li>
                     {% if app.user.username is defined %}
-                    Witaj {{ app.user.name }}, <a href="{{ path('app_logout') }}">Wyloguj</a>
+                    Witaj {{ app.user.name }},  <a href="{{ path('app_logout') }}"> Wyloguj</a>
                     {% endif %}</li>
                     <li><a href="" class="fancybox">Zmień hasło</a></li>
                 </ul>
@@ -34,8 +34,13 @@
         <div class="container">
             <div class="row">
                 <main id="main" class="site-main col-xs-12">
-                    <div class="col-xs-12 col-sm-10 register-form form clearfix">
-                        <input name="submit" id="submit" class="btn btn-default" value="Dodaj dziecko" type="submit">
+                    <div class="col-xs-12 col-sm-10 register-form form clearfix">                        
+                        {% for message in app.flashes('success') %}
+                            <div class="alert alert-success">
+                            {{ message }}
+                            </div>
+                        {% endfor %}                
+                        <a href="{{ path('add_child') }}" id="linkLikeButton">Dodaj dziecko</a>
                         <section class="courses-curriculum clearfix">
                             <h3>Arek</h3>
                             <a class="btn btn-ex-small btn-orange" href="blog-details.html#">Dodaj dyplom</a><a class="btn btn-ex-small btn-orange" href="blog-details.html#">Edytuj</a><a class="btn btn-ex-small btn-orange" href="blog-details.html#">Usuń</a>
