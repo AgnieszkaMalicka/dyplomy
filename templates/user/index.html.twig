@@ -41,9 +41,10 @@
                             </div>
                         {% endfor %}                
                         <a href="{{ path('add_child') }}" id="linkLikeButton">Dodaj dziecko</a>
-                        <section class="courses-curriculum clearfix">
-                            <h3>Arek</h3>
-                            <a class="btn btn-ex-small btn-orange" href="blog-details.html#">Dodaj dyplom</a><a class="btn btn-ex-small btn-orange" href="blog-details.html#">Edytuj</a><a class="btn btn-ex-small btn-orange" href="blog-details.html#">Usuń</a>
+                        {% for child in childrenList %}
+                        <section class="courses-curriculum clearfix">                        
+                            <h3>{{ child.name }}</h3>
+                            <a class="btn btn-ex-small btn-orange" href="blog-details.html#">Dodaj dyplom</a><a class="btn btn-ex-small btn-orange" href="blog-details.html#">Edytuj</a><a class="btn btn-ex-small btn-orange" href="{{ path('delete_child') }}">Usuń</a>
                                 <h4>Zdobyte dyplomy</h4>                                
                                     <ul>
                                         <li class="courses-open"><span class="no">1</span>
@@ -93,6 +94,7 @@
                                         </li>
                                     </ul>               
                         </section>
+                        {% endfor %}
                     </div> 
                 </main>
             </div> 
