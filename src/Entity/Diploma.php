@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\DiplomaRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
@@ -42,6 +44,16 @@ class Diploma
      * @ORM\JoinColumn(nullable=false)
      */
     private $child;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Task::class, mappedBy="diploma")
+     */
+    private $tasks;
+
+    public function __construct()
+    {
+        $this->tasks = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -92,6 +104,36 @@ class Diploma
     public function setChild(?Child $child): self
     {
         $this->child = $child;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Task[]
+     */
+    public function getTasks(): Collection
+    {
+        return $this->tasks;
+    }
+
+    public function addTask(Task $task): self
+    {
+        if (!$this->tasks->contains($task)) {
+            $this->tasks[] = $task;
+            $task->setDiploma($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTask(Task $task): self
+    {
+        if ($this->tasks->removeElement($task)) {
+            // set the owning side to null (unless already changed)
+            if ($task->getDiploma() === $this) {
+                $task->setDiploma(null);
+            }
+        }
 
         return $this;
     }
