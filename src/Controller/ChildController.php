@@ -39,4 +39,16 @@ class ChildController extends AbstractController
             'addChildForm' => $form->createView(),
         ]);
     }
+
+    /**
+     * @Route("/usun-dziecko/{id}", name="delete_child")
+     */
+    public function delete(int $id, Child $child, EntityManagerInterface $em)
+    {
+        $em->remove($child);
+        $em->flush();
+
+        $this->addFlash('success', 'Dziecko zostało usunięte');
+        return $this->redirectToRoute('user_home');
+    }
 }

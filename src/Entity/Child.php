@@ -4,12 +4,17 @@ namespace App\Entity;
 
 use App\Repository\ChildRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 
 /**
  * @ORM\Entity(repositoryClass=ChildRepository::class)
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false, hardDelete=false)
  */
 class Child
 {
+    use SoftDeleteableEntity;
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -28,7 +33,7 @@ class Child
     private $age;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="children")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="children")
      */
     private $user;
 
