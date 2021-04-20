@@ -51,4 +51,31 @@ class ChildController extends AbstractController
         $this->addFlash('success', 'Dziecko zostało usunięte');
         return $this->redirectToRoute('user_home');
     }
+
+    /**
+     * @Route("/edytuj-dziecko/{id}", name="edit_child")
+     */
+    public function editChild(Child $child, EntityManagerInterface $em, Request $request)
+    {
+        $form = $this->createForm(ChildFormType::class, $child);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            //zamiast tych dwóch linijek może być $child = $form->getData();
+            $child->setName($form->get('name')->getData());
+            $child->setAge($form->get('age')->getData());
+
+            // $entityManager = $this->getDoctrine()->getManager(); //EntityManager przekazujemy jako argument więc nie trzeba tej linijki
+            $em->persist($child);
+            $em->flush();
+
+            $this->addFlash('success', 'Dziecko zostało zedytowane');
+            return $this->redirectToRoute('edit_child', ['id' => $child->getId()]);
+        }
+
+        return $this->render('child/edit.html.twig', [
+            'editChildForm' => $form->createView(),
+        ]);
+    }
 }
