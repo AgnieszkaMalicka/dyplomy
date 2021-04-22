@@ -40,7 +40,7 @@ class Child
     private $user;
 
     /**
-     * @ORM\OneToMany(targetEntity=Diploma::class, mappedBy="child")
+     * @ORM\OneToMany(targetEntity=Diploma::class, mappedBy="child", cascade={"remove"})
      */
     private $diplomas;
 
