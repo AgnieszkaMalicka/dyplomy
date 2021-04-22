@@ -47,27 +47,18 @@
                             <a class="btn btn-ex-small btn-orange" href="{{ path('edit_child', {id: child.id}) }}">Edytuj</a><a class="btn btn-ex-small btn-orange" href="{{ path('delete_child', {id: child.id}) }}">Usuń</a>
                                 <h4>Zdobyte dyplomy</h4>                                
                                     <ul>
+                                    {% for diploma in child.diplomas %}
                                         <li class="courses-open"><span class="no">1</span>
                                             <p class="ctitle">
-                                                <span class="title"><i class="fa fa-play-circle"></i> Tytuł dyplomu</span>                                                
+                                                <span class="title"><i class="fa fa-play-circle"></i> {{ diploma.title }}</span>                                                
                                             </p>
-                                            <span class="preview">Podgląd</span><span class="preview">Usuń</span>
+                                            <span class="preview">Podgląd</span><a href="{{ path('delete_diploma', {id: diploma.id}) }}"><span class="preview">Usuń</span></a>
                                             <p class="other">
-                                                <span class="time"><i class="fa fa-clock-o"></i>Uzyskany dnia: 13.04.2021 11:30</span>
+                                                <span class="time"><i class="fa fa-clock-o"></i>Uzyskany dnia: {{ diploma.capturedAt is empty ? "" : diploma.capturedAt|date("Y-m-d") }}</span>
                                                 <span class="info"><i class="fa fa-paperclip"></i> Pobierz PDF</span>
                                             </p>
                                         </li>
-
-                                        <li class="courses-open"><span class="no">2</span>
-                                            <p class="ctitle">
-                                                <span class="title"><i class="fa fa-play-circle"></i> Tytuł dyplomu <a href="classes-details.html#"><i class="fa fa-angle-down"></i></a></span>                                                
-                                            </p>
-                                            <span class="preview">Podgląd</span><span class="preview">Usuń</span>
-                                            <p class="other">
-                                                <span class="time"><i class="fa fa-clock-o"></i>Uzyskany dnia: 13.04.2021 11:30</span>
-                                                <span class="info"><i class="fa fa-paperclip"></i> Pobierz PDF</span>
-                                            </p>
-                                        </li>
+                                    {% endfor %}                                        
                                     </ul>
                                 <h4>Dyplomy w trakcie zdobywania</h4>
                                     <ul>

@@ -68,4 +68,16 @@ class DiplomaController extends AbstractController
             'addDiplomaForm' => $form->createView(),
         ]);
     }
+
+    /**
+     * @Route("/usun-dyplom/{id}", name="delete_diploma")
+     */
+    public function delete(int $id, Diploma $diploma, EntityManagerInterface $em)
+    {
+        $em->remove($diploma);
+        $em->flush();
+
+        $this->addFlash('success', 'Dyplom został usunięty');
+        return $this->redirectToRoute('user_home');
+    }
 }

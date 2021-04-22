@@ -46,7 +46,7 @@ class Diploma
     private $child;
 
     /**
-     * @ORM\OneToMany(targetEntity=Task::class, mappedBy="diploma")
+     * @ORM\OneToMany(targetEntity=Task::class, mappedBy="diploma", cascade={"remove"})
      */
     private $tasks;
 
