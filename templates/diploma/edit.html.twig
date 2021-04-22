@@ -1,0 +1,78 @@
+{% extends 'baseUser.html.twig' %}
+
+{% block title %}Edytuj dyplom{% endblock %}
+
+
+{% block body %}
+
+<div class="header_meta header_meta_one">
+    <div class="container">
+        <div class="row">            
+            <nav class="meta-login">
+                <ul>
+                    <li>
+                    {% if app.user.username is defined %}
+                    Witaj {{ app.user.name }},  <a href="{{ path('app_logout') }}"> Wyloguj</a>
+                    {% endif %}</li>
+                    <li><a href="" class="fancybox">Zmień hasło</a></li>
+                </ul>
+            </nav>
+        </div> 
+    </div>
+</div>
+
+<header class="site-header home-one" id="masthead">
+    <div class="container">
+        <div class="row">
+            <div class="site-branding col-xs-12 col-sm-3"> <img src="{{ asset('images/logo5.png') }}" /></div>
+        </div>
+    </div>
+</header>
+
+<div class="page-spacer clearfix">
+    <div id="primary" class="content-area">
+        <div class="container">
+            <div class="row">
+                <main id="main" class="site-main col-xs-12">
+                {% for message in app.flashes('success') %}
+                    <div class="alert alert-success">
+                    {{ message }}
+                    </div>
+                {% endfor %}                
+                    <div class="col-xs-12 col-sm-10 register-form form clearfix">                        
+                        <a href="{{ path('user_home') }}" id="linkLikeButton">Powrót</a>
+                        <section class="courses-curriculum clearfix">                        
+                        {{ form_start(editDiplomaForm) }}
+                            <label>{{ form_row(editDiplomaForm.title, { label: 'Tytuł' }) }}</label>
+                            <label>{{ form_row(editDiplomaForm.child, { label: 'Dziecko' }) }}</label>
+
+                            <ul class="tags">
+                                {% for task in editDiplomaForm.tasks %}
+                                    <li>{{ form_row(task.description) }}</li>
+                                {% endfor %}
+                            </ul>
+                            
+                            <input name="submit" id="submit" class="btn btn-default" value="Edytuj dyplom" type="submit">
+                            
+                        {{ form_end(editDiplomaForm) }}                  
+                        </section>
+                    </div> 
+                </main>
+            </div> 
+        </div> 
+    </div>
+</div> 
+<script src="{{ asset('js/jquery.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('js/bootstrap.min.js') }}" type="text/javascript"></script>
+
+<script src="{{ asset('js/theme.js') }}" type="text/javascript"></script>
+
+<script src="{{ asset('vendor/fancybox/js/jquery.fancybox.js') }}" type="text/javascript"></script>
+
+<script src="{{ asset('vendor/fancybox/js/custom.fancybox.js') }}" type="text/javascript"></script>
+<script>
+jQuery.noConflict();
+jQuery('.fancybox').fancybox();
+</script>
+
+{% endblock %}

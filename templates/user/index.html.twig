@@ -52,7 +52,7 @@
                                             <p class="ctitle">
                                                 <span class="title"><i class="fa fa-play-circle"></i> {{ diploma.title }}</span>                                                
                                             </p>
-                                            <span class="preview">Podgląd</span><a href="{{ path('delete_diploma', {id: diploma.id}) }}"><span class="preview">Usuń</span></a>
+                                            <a href="{{ path('edit_diploma', {id: diploma.id}) }}"><span class="preview">Edytuj</span></a><a href="{{ path('delete_diploma', {id: diploma.id}) }}"><span class="preview">Usuń</span></a>
                                             <p class="other">
                                                 <span class="time"><i class="fa fa-clock-o"></i>Uzyskany dnia: {{ diploma.capturedAt is empty ? "" : diploma.capturedAt|date("Y-m-d") }}</span>
                                                 <span class="info"><i class="fa fa-paperclip"></i> Pobierz PDF</span>
@@ -66,7 +66,7 @@
                                             <p class="ctitle">
                                                 <span class="title"><i class="fa fa-play-circle"></i> Tytuł dyplomu</span>                                                
                                             </p>
-                                            <span class="preview">Podgląd</span><span class="preview">Edytuj</span><span class="preview">Usuń</span>
+                                            <span class="preview">Podgląd</span><a href=""><span class="preview">Edytuj</span></a><span class="preview">Usuń</span>
                                             <p class="other">
                                                 <span class="time"><i class="fa fa-clock-o"></i>Uzyskany dnia: 13.04.2021 11:30</span>
                                                 <span class="info"><i class="fa fa-lock"></i> Pobierz PDF</span>

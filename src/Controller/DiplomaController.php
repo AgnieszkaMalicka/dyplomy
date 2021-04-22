@@ -80,4 +80,32 @@ class DiplomaController extends AbstractController
         $this->addFlash('success', 'Dyplom został usunięty');
         return $this->redirectToRoute('user_home');
     }
+
+    /**
+     * @Route("/edytuj-dyplom/{id}", name="edit_diploma")
+     */
+    public function editChild(Diploma $diploma, EntityManagerInterface $em, Request $request)
+    {
+        $form = $this->createForm(DiplomaFormType::class, $diploma);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $diploma = $form->getData();
+            $em->persist($diploma);
+            foreach ($form->get('tasks')->getData() as $item) {
+                $item->setDiploma($diploma);
+                $em->persist($item);
+            }
+
+            $em->flush();
+
+            $this->addFlash('success', 'Dyplom został zedytowany');
+            return $this->redirectToRoute('user_home');
+        }
+
+        return $this->render('diploma/edit.html.twig', [
+            'editDiplomaForm' => $form->createView(),
+        ]);
+    }
 }
