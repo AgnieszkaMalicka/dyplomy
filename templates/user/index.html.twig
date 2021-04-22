@@ -40,11 +40,11 @@
                             {{ message }}
                             </div>
                         {% endfor %}                
-                        <a href="{{ path('add_child') }}" id="linkLikeButton">Dodaj dziecko</a>
+                        <a href="{{ path('add_child') }}" id="linkLikeButton">Dodaj dziecko</a><a id="linkLikeButton" href="{{ path('add_diploma') }}">Dodaj dyplom</a>
                         {% for child in childrenList %}
                         <section class="courses-curriculum clearfix">                        
                             <h3>{{ child.name }}</h3>
-                            <a class="btn btn-ex-small btn-orange" href="blog-details.html#">Dodaj dyplom</a><a class="btn btn-ex-small btn-orange" href="{{ path('edit_child', {id: child.id}) }}">Edytuj</a><a class="btn btn-ex-small btn-orange" href="{{ path('delete_child', {id: child.id}) }}">Usuń</a>
+                            <a class="btn btn-ex-small btn-orange" href="{{ path('edit_child', {id: child.id}) }}">Edytuj</a><a class="btn btn-ex-small btn-orange" href="{{ path('delete_child', {id: child.id}) }}">Usuń</a>
                                 <h4>Zdobyte dyplomy</h4>                                
                                     <ul>
                                         <li class="courses-open"><span class="no">1</span>

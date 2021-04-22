@@ -53,6 +53,7 @@ class Diploma
     public function __construct()
     {
         $this->tasks = new ArrayCollection();
+        $this->setCreatedAt(new \DateTime());
     }
 
     public function getId(): ?int

@@ -33,7 +33,7 @@ class Task
     private $madeAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Diploma::class, inversedBy="tasks")
+     * @ORM\ManyToOne(targetEntity=Diploma::class, inversedBy="tasks", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $diploma;
