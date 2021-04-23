@@ -46,9 +46,11 @@
                             <label>{{ form_row(editDiplomaForm.title, { label: 'Tytuł' }) }}</label>
                             <label>{{ form_row(editDiplomaForm.child, { label: 'Dziecko' }) }}</label>
 
-                            <ul class="tags">
-                                {% for task in editDiplomaForm.tasks %}
-                                    <li>{{ form_row(task.description) }}</li>
+                            <ul class="tasks">
+                                {% for task in editDiplomaForm.tasks %}                                
+                                    <li><a class="btn btn-ex-small btn-orange" href="{{ path('delete_task', {id: task.vars.value.id}) }}">Usuń</a>
+                                    {{ form_row(task.description) }}
+                                    </li>
                                 {% endfor %}
                             </ul>
                             

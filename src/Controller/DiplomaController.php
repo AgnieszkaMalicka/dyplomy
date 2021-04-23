@@ -84,8 +84,9 @@ class DiplomaController extends AbstractController
     /**
      * @Route("/edytuj-dyplom/{id}", name="edit_diploma")
      */
-    public function editChild(Diploma $diploma, EntityManagerInterface $em, Request $request)
+    public function editDiploma(Diploma $diploma, EntityManagerInterface $em, Request $request)
     {
+
         $form = $this->createForm(DiplomaFormType::class, $diploma);
 
         $form->handleRequest($request);
@@ -101,7 +102,6 @@ class DiplomaController extends AbstractController
             $em->flush();
 
             $this->addFlash('success', 'Dyplom został zedytowany');
-            return $this->redirectToRoute('user_home');
         }
 
         return $this->render('diploma/edit.html.twig', [
