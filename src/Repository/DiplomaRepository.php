@@ -19,6 +19,39 @@ class DiplomaRepository extends ServiceEntityRepository
         parent::__construct($registry, Diploma::class);
     }
 
+    /**
+     * @return Diploma[] Returns an array of Diploma objects
+     */
+
+    public function getCapturedDiplomas($child)
+    {
+        return $this->createQueryBuilder('d')
+            ->andWhere('d.child = :val')
+            ->andWhere('d.capturedAt IS NOT NULL')
+            ->setParameter('val', $child)
+            ->orderBy('d.id', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @return Diploma[] Returns an array of Diploma objects
+     */
+
+    public function getUnCapturedDiplomas($child)
+    {
+        return $this->createQueryBuilder('d')
+            ->andWhere('d.child = :val')
+            ->andWhere('d.capturedAt IS NULL')
+            ->setParameter('val', $child)
+            ->orderBy('d.id', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult();
+    }
+
+
     // /**
     //  * @return Diploma[] Returns an array of Diploma objects
     //  */

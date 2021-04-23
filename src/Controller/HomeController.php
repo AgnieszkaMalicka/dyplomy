@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use Doctrine\ORM\EntityManagerInterface;
+use Proxies\__CG__\App\Entity\Diploma;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -30,9 +32,16 @@ class HomeController extends AbstractController
     /**
      * @Route("/profil/home", name="user_home")
      */
-    public function user_home(): Response
+    public function user_home(EntityManagerInterface $em): Response
     {
         $childrenList = $this->getUser()->getChildren();
+
+        $repository = $em->getRepository(Diploma::class);
+
+        foreach ($childrenList as $child) {
+            $child->diplomasCaptured = $repository->getCapturedDiplomas($child->getId());
+            $child->diplomasUnCaptured = $repository->getUnCapturedDiplomas($child->getId());
+        }
 
         return $this->render('user/index.html.twig', ['childrenList' => $childrenList]);
     }

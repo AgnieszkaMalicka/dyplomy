@@ -23,7 +23,7 @@
 
 <header class="site-header home-one" id="masthead">
     <div class="container">
-        <div class="row">
+        <div class="row" style="justify-content: center">
             <div class="site-branding col-xs-12 col-sm-3"> <img src="{{ asset('images/logo5.png') }}" /></div>
         </div>
     </div>
@@ -32,7 +32,7 @@
 <div class="page-spacer clearfix">
     <div id="primary" class="content-area">
         <div class="container">
-            <div class="row">
+            <div class="row" style="justify-content: center">
                 <main id="main" class="site-main col-xs-12">
                     <div class="col-xs-12 col-sm-10 register-form form clearfix">                        
                         {% for message in app.flashes('success') %}
@@ -40,19 +40,20 @@
                             {{ message }}
                             </div>
                         {% endfor %}                
-                        <a href="{{ path('add_child') }}" id="linkLikeButton">Dodaj dziecko</a><a id="linkLikeButton" href="{{ path('add_diploma') }}">Dodaj dyplom</a>
+                        <a href="{{ path('add_child') }}" id="linkLikeButton">Dodaj dziecko</a><a id="linkLikeButton" href="{{ path('add_diploma') }}">Dodaj dyplom</a>                        
+                        
                         {% for child in childrenList %}
                         <section class="courses-curriculum clearfix">                        
                             <h3>{{ child.name }}</h3>
                             <a class="btn btn-ex-small btn-orange" href="{{ path('edit_child', {id: child.id}) }}">Edytuj</a><a class="btn btn-ex-small btn-orange" href="{{ path('delete_child', {id: child.id}) }}">Usuń</a>
                                 <h4>Zdobyte dyplomy</h4>                                
                                     <ul>
-                                    {% for diploma in child.diplomas %}
+                                    {% for diploma in child.diplomasCaptured %}
                                         <li class="courses-open"><span class="no">1</span>
                                             <p class="ctitle">
                                                 <span class="title"><i class="fa fa-play-circle"></i> {{ diploma.title }}</span>                                                
                                             </p>
-                                            <a href="{{ path('edit_diploma', {id: diploma.id}) }}"><span class="preview">Edytuj</span></a><a href="{{ path('delete_diploma', {id: diploma.id}) }}"><span class="preview">Usuń</span></a>
+                                            <a href="{{ path('delete_diploma', {id: diploma.id}) }}"><span class="preview">Usuń</span></a>
                                             <p class="other">
                                                 <span class="time"><i class="fa fa-clock-o"></i>Uzyskany dnia: {{ diploma.capturedAt is empty ? "" : diploma.capturedAt|date("Y-m-d") }}</span>
                                                 <span class="info"><i class="fa fa-paperclip"></i> Pobierz PDF</span>
@@ -62,27 +63,14 @@
                                     </ul>
                                 <h4>Dyplomy w trakcie zdobywania</h4>
                                     <ul>
+                                        {% for diploma in child.diplomasUnCaptured %}
                                         <li class="courses-open"><span class="no">1</span>
                                             <p class="ctitle">
-                                                <span class="title"><i class="fa fa-play-circle"></i> Tytuł dyplomu</span>                                                
+                                                <span class="title"><i class="fa fa-play-circle"></i> {{ diploma.title }}</span>                                                
                                             </p>
-                                            <span class="preview">Podgląd</span><a href=""><span class="preview">Edytuj</span></a><span class="preview">Usuń</span>
-                                            <p class="other">
-                                                <span class="time"><i class="fa fa-clock-o"></i>Uzyskany dnia: 13.04.2021 11:30</span>
-                                                <span class="info"><i class="fa fa-lock"></i> Pobierz PDF</span>
-                                            </p>
+                                            <a href="{{ path('edit_diploma', {id: diploma.id}) }}"><span class="preview">Edytuj</span></a>&nbsp;<a href="{{ path('delete_diploma', {id: diploma.id}) }}"><span class="preview">Usuń</span></a>                                            
                                         </li>
-
-                                        <li class="courses-open"><span class="no">2</span>
-                                            <p class="ctitle">
-                                                <span class="title"><i class="fa fa-play-circle"></i> Tytuł dyplomu <a href="classes-details.html#"><i class="fa fa-angle-down"></i></a></span>                                                
-                                            </p>
-                                            <span class="preview">Podgląd</span><span class="preview">Edytuj</span><span class="preview">Usuń</span>
-                                            <p class="other">
-                                                <span class="time"><i class="fa fa-clock-o"></i>Uzyskany dnia: 13.04.2021 11:30</span>
-                                                <span class="info"><i class="fa fa-lock"></i> Pobierz PDF</span>
-                                            </p>
-                                        </li>
+                                    {% endfor %}                               
                                     </ul>               
                         </section>
                         {% endfor %}
