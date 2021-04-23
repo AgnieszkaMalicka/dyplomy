@@ -49,7 +49,7 @@
                                 <h4>Zdobyte dyplomy</h4>                                
                                     <ul>
                                     {% for diploma in child.diplomasCaptured %}
-                                        <li class="courses-open"><span class="no">1</span>
+                                        <li class="courses-open"><span class="no">{{ loop.index }}</span>
                                             <p class="ctitle">
                                                 <span class="title"><i class="fa fa-play-circle"></i> {{ diploma.title }}</span>                                                
                                             </p>
@@ -64,7 +64,7 @@
                                 <h4>Dyplomy w trakcie zdobywania</h4>
                                     <ul>
                                         {% for diploma in child.diplomasUnCaptured %}
-                                        <li class="courses-open"><span class="no">1</span>
+                                        <li class="courses-open"><span class="no">{{ loop.index}} </span>
                                             <p class="ctitle">
                                                 <span class="title"><i class="fa fa-play-circle"></i> {{ diploma.title }}</span>                                                
                                             </p>
