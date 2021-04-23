@@ -53,6 +53,7 @@
                                             <p class="ctitle">
                                                 <span class="title"><i class="fa fa-play-circle"></i> {{ diploma.title }}</span>                                                
                                             </p>
+                                            <a href="{{ path('show_diploma', {id: diploma.id}) }}"><span class="preview">Podgląd</span></a>&nbsp;
                                             <a href="{{ path('delete_diploma', {id: diploma.id}) }}"><span class="preview">Usuń</span></a>
                                             <p class="other">
                                                 <span class="time"><i class="fa fa-clock-o"></i>Uzyskany dnia: {{ diploma.capturedAt is empty ? "" : diploma.capturedAt|date("Y-m-d") }}</span>

@@ -108,4 +108,12 @@ class DiplomaController extends AbstractController
             'editDiplomaForm' => $form->createView(),
         ]);
     }
+
+    /**
+     * @Route("/pokaz-dyplom/{id}", name="show_diploma")
+     */
+    public function showDiploma(Diploma $diploma, EntityManagerInterface $em, Request $request)
+    {
+        return $this->render('diploma/show.html.twig', ['diploma' => $diploma]);
+    }
 }
