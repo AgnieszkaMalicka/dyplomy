@@ -24,4 +24,20 @@ class TaskController extends AbstractController
         $this->addFlash('success', 'Task został usunięty');
         return $this->redirectToRoute('edit_diploma', ['id' => $diploma->getId()]);
     }
+
+    /**
+     * @Route("/wykonaj-task/{id}", name="capture_task")
+     */
+    public function capture(Task $task, EntityManagerInterface $em)
+    {
+        $diploma = $task->getDiploma();
+
+        $task->setMadeAt(new \DateTime());
+
+        $em->persist($task);
+        $em->flush();
+
+        $this->addFlash('success', 'Task został wykonany');
+        return $this->redirectToRoute('edit_diploma', ['id' => $diploma->getId()]);
+    }
 }
