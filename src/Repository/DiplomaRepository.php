@@ -51,6 +51,20 @@ class DiplomaRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    /**
+     * @return Diploma[] Returns an array of Diploma objects
+     */
+
+    public function getDiplomaWithTasks($diploma)
+    {
+        return $this->createQueryBuilder('d')
+            ->leftJoin('d.tasks', 't')
+            ->andWhere('d.id = :val')
+            ->setParameter('val', $diploma->getId())
+            ->getQuery()
+            ->getResult();
+    }
+
 
     // /**
     //  * @return Diploma[] Returns an array of Diploma objects

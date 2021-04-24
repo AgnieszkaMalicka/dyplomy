@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Diploma;
 use App\Entity\Task;
+use App\Factory\DiplomaFactory;
 use App\Form\DiplomaFormType;
+use App\Form\DiplomaSimilarFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -39,24 +41,12 @@ class DiplomaController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // dd($form->get('tasks')->getData());
-            // dd($form->get('tasks'));
-            // $diploma->setTitle($form->get('title')->getData());
-            // $diploma->setChild($form->get('child')->getData());
             $diploma = $form->getData();
             $em->persist($diploma);
             foreach ($form->get('tasks')->getData() as $item) {
-                // dd($item);
-
                 $item->setDiploma($diploma);
                 $em->persist($item);
             }
-
-
-            // $task->setDiploma($diploma);
-            // $task1->setDiploma($diploma);
-            // $em->persist($task);
-            // $em->persist($task1);
 
             $em->flush();
 
@@ -112,8 +102,28 @@ class DiplomaController extends AbstractController
     /**
      * @Route("/pokaz-dyplom/{id}", name="show_diploma")
      */
-    public function showDiploma(Diploma $diploma, EntityManagerInterface $em, Request $request)
+    public function showDiploma(Diploma $diploma, EntityManagerInterface $em, Request $request, DiplomaFactory $diplomaFactory)
     {
-        return $this->render('diploma/show.html.twig', ['diploma' => $diploma]);
+        $form = $this->createForm(DiplomaSimilarFormType::class, $diploma);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $diplomaAndTasks = $diplomaFactory->createSimilarDiploma($form->getData());
+
+            $em->refresh($diploma);
+            $em->detach($diplomaAndTasks[0]);
+
+            $em->persist($diplomaAndTasks[0]);
+            foreach ($diplomaAndTasks[1] as $item) {
+                $em->detach($item);
+                $em->persist($item);
+            }
+            $em->flush();
+
+            $this->addFlash('success', 'Dyplom został pomyślnie skopiowany.');
+        }
+
+        return $this->render('diploma/show.html.twig', ['diploma' => $diploma, 'similarDiplomaForm' => $form->createView()]);
     }
 }

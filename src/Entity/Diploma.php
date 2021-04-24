@@ -61,6 +61,13 @@ class Diploma
         return $this->id;
     }
 
+    public function setId(?int $id): self
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
     public function getTitle(): ?string
     {
         return $this->title;
@@ -138,4 +145,22 @@ class Diploma
 
         return $this;
     }
+
+    // public function __clone()
+    // {
+    //     unset($this->_entityPersister, $this->_identifier);
+    //     if ($this->id) {
+    //         $this->setId(null);
+    //         // dd('jwestejcnk');
+
+    //         // cloning the relation M which is a OneToMany
+    //         $mClone = new ArrayCollection();
+    //         foreach ($this->tasks as $item) {
+    //             $itemClone = clone $item;
+    //             $itemClone->setDiploma($this);
+    //             $mClone->add($itemClone);
+    //         }
+    //         $this->tasks = $mClone;
+    //     }
+    // }
 }

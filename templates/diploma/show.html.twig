@@ -33,9 +33,20 @@
     <div id="primary" class="content-area">
         <div class="container">
             <div class="row">
-                <main id="main" class="site-main col-xs-12">                             
+                <main id="main" class="site-main col-xs-12">   
+                {% for message in app.flashes('success') %}
+                    <div class="alert alert-success">
+                    {{ message }}
+                    </div>
+                {% endfor %}                                          
                     <div class="col-xs-12 col-sm-10 register-form form clearfix">                        
                         <a href="{{ path('user_home') }}" id="linkLikeButton">Powrót</a>
+                        
+                        {{ form_start(similarDiplomaForm) }}
+                            <label>{{ form_row(similarDiplomaForm.child, { label: 'Dziecko' }) }}</label>
+                            <input name="submit" id="submit" class="btn btn-default" value="Dodaj podobny dyplom" type="submit">
+                        {{ form_end(similarDiplomaForm) }}                  
+                        
                         <section class="courses-curriculum clearfix">                                                
                         <p>Tytuł: {{ diploma.title }}</p>            
                         <p>Utworzony dnia: {{ diploma.createdAt is empty ? "" : diploma.createdAt|date("Y-m-d") }}</p>            
