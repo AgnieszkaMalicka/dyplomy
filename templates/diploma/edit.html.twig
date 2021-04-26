@@ -40,7 +40,7 @@
                     </div>
                 {% endfor %}                
                     <div class="col-xs-12 col-sm-10 register-form form clearfix">                        
-                        <a href="{{ path('user_home') }}" id="linkLikeButton">Powrót</a>
+                        <a href="{{ path('user_home') }}" id="linkLikeButton">Powrót</a>                        
                         <section class="courses-curriculum clearfix">                        
                         {{ form_start(editDiplomaForm) }}
                             <label>{{ form_row(editDiplomaForm.title, { label: 'Tytuł' }) }}</label>
@@ -48,7 +48,12 @@
 
                             <ul class="tasks">
                                 {% for task in editDiplomaForm.tasks %}                                
-                                    <li><a class="btn btn-ex-small btn-orange" href="{{ path('delete_task', {id: task.vars.value.id}) }}">Usuń</a>
+                                    <li><a class="btn btn-ex-small btn-orange" href="{{ path('delete_task', {id: task.vars.value.id}) }}">Usuń</a>                                    
+                                    {% if task.vars.value.madeAt is null %}
+                                        <a class="btn btn-ex-small btn-orange" href="{{ path('capture_task', {id: task.vars.value.id}) }}">Oznacz jako wykonany</a>
+                                        {% else %}
+                                        <span style="color: green;">Zadanie wykonane</span>
+                                    {% endif %}
                                     {{ form_row(task.description) }}
                                     </li>
                                 {% endfor %}

@@ -76,7 +76,6 @@ class DiplomaController extends AbstractController
      */
     public function editDiploma(Diploma $diploma, EntityManagerInterface $em, Request $request)
     {
-
         $form = $this->createForm(DiplomaFormType::class, $diploma);
 
         $form->handleRequest($request);
@@ -95,7 +94,7 @@ class DiplomaController extends AbstractController
         }
 
         return $this->render('diploma/edit.html.twig', [
-            'editDiplomaForm' => $form->createView(),
+            'editDiplomaForm' => $form->createView()
         ]);
     }
 

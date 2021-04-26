@@ -19,6 +19,32 @@ class TaskRepository extends ServiceEntityRepository
         parent::__construct($registry, Task::class);
     }
 
+    /**
+     * @return TASK[] Returns an array of Task objects
+     */
+
+    public function getCountUncapturedTasksInDiploma($diploma)
+    {
+        // $qb = $em->createQueryBuilder();
+
+        // $result = $qb->select('COUNT(u)')
+        //              ->from('UserBundle:User' , 'u')
+        //              ->leftJoin('u.UserGroup','g')
+        //              ->where('g.GroupId = :id')
+        //              ->andWhere('g.UserId = :null')
+        //              ->setParameter('id', 70)
+        //              ->setParameter('null', null)
+        //              ->getQuery()
+        //              ->getOneOrNullResult();
+
+        return $this->createQueryBuilder('t')
+            ->andWhere('t.diploma = :val')
+            ->andWhere('t.madeAt IS NULL')
+            ->setParameter('val', $diploma->getId())
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return Task[] Returns an array of Task objects
     //  */

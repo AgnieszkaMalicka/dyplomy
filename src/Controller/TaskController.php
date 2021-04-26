@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Diploma;
 use App\Entity\Task;
+use App\Service\CapturedDiplomaDeterminator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,7 +29,7 @@ class TaskController extends AbstractController
     /**
      * @Route("/wykonaj-task/{id}", name="capture_task")
      */
-    public function capture(Task $task, EntityManagerInterface $em)
+    public function capture(Task $task, EntityManagerInterface $em, CapturedDiplomaDeterminator $determinator)
     {
         $diploma = $task->getDiploma();
 
@@ -36,6 +37,14 @@ class TaskController extends AbstractController
 
         $em->persist($task);
         $em->flush();
+
+        $ifCapturedDiploma = $determinator->ifAllTasksInDiplomaAreReady($diploma);
+
+        if ($ifCapturedDiploma) {
+            $diploma->setCapturedAt(new \DateTime());
+            $em->persist($diploma);
+            $em->flush();
+        }
 
         $this->addFlash('success', 'Task został wykonany');
         return $this->redirectToRoute('edit_diploma', ['id' => $diploma->getId()]);
